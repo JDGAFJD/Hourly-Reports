@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Agent Chat Reporting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .form-section {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+    input, select {
+      padding: 0.3rem;
+      margin-bottom: 0.6rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .hidden {
+      display: none;
+    }
+    .report {
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Agent Chat Reporting Form</h1>
+
+<form id="reportForm">
+  
+  <!-- Agent Name -->
+  <div class="form-section">
+    <label for="agentName">Name of the Agent</label>
+    <select id="agentName" required>
+      <option value="">-- Select Agent --</option>
+      <option value="Agent 1">Agent 1</option>
+      <option value="Agent 2">Agent 2</option>
+      <option value="Agent 3">Agent 3</option>
+      <option value="Agent 4">Agent 4</option>
+      <option value="Agent 5">Agent 5</option>
+      <option value="Agent 6">Agent 6</option>
+      <option value="Agent 7">Agent 7</option>
+      <option value="Agent 8">Agent 8</option>
+    </select>
+  </div>
+  
+  <!-- Date and Hour (CST) -->
+  <div class="form-section">
+    <label for="dateTime">Date &amp; Hour (CST)</label>
+    <input type="datetime-local" id="dateTime" required />
+  </div>
+
+  <!-- Total Number of Chats -->
+  <div class="form-section">
+    <label for="totalChats">Total Number of Chats</label>
+    <input type="number" id="totalChats" min="0" required />
+  </div>
+
+  <!-- Billing Category -->
+  <div class="form-section">
+    <label for="billingTotal">Billing - Total Chats</label>
+    <input type="number" id="billingTotal" min="0" value="0" required />
+    <label>Charged After Cancelation</label>
+    <input type="number" id="chargedAfterCancelation" min="0" value="0" />
+    <label>With 14 days MBG</label>
+    <input type="number" id="with14DaysMBG" min="0" value="0" />
+    <label>Add-ons/Extra Charges</label>
+    <input type="number" id="addOnsExtraCharges" min="0" value="0" />
+    <label>Wanting to Pay Their Bill</label>
+    <input type="number" id="wantingToPayBill" min="0" value="0" />
+    <label>Extensions</label>
+    <input type="number" id="extensions" min="0" value="0" />
+  </div>
+
+  <!-- Tech Category -->
+  <div class="form-section">
+    <label for="techTotal">Tech - Total Chats</label>
+    <input type="number" id="techTotal" min="0" value="0" required />
+    <label>Activation</label>
+    <input type="number" id="activation" min="0" value="0" />
+    <label>Slow Speeds</label>
+    <input type="number" id="slowSpeeds" min="0" value="0" />
+    <label>Internet Stopping Out of Nowhere</label>
+    <input type="number" id="internetStopping" min="0" value="0" />
+    <label>Internet Not Working After Resuming Service</label>
+    <input type="number" id="internetNotWorkingResume" min="0" value="0" />
+    <label>Replacements (Replacement Activation)</label>
+    <input type="number" id="replacements" min="0" value="0" />
+  </div>
+
+  <!-- Cancelation Category -->
+  <div class="form-section">
+    <label for="cancellationTotal">Cancelation - Total Chats</label>
+    <input type="number" id="cancellationTotal" min="0" value="0" required />
+    <label>Found Another Provider</label>
+    <input type="number" id="foundAnotherProvider" min="0" value="0" />
+    <label>Slow Speeds (Cancel)</label>
+    <input type="number" id="cancelSlowSpeeds" min="0" value="0" />
+    <label>Not Consistent Enough</label>
+    <input type="number" id="notConsistentEnough" min="0" value="0" />
+    <label>No Longer Needed</label>
+    <input type="number" id="noLongerNeeded" min="0" value="0" />
+    <label>Customer Service</label>
+    <input type="number" id="customerService" min="0" value="0" />
+    <label>Too Expensive</label>
+    <input type="number" id="tooExpensive" min="0" value="0" />
+    <label>Thought it was a 14 Days Free Trial</label>
+    <input type="number" id="freeTrialMisunderstanding" min="0" value="0" />
+    <label>Pre Order Cancelation</label>
+    <input type="number" id="preOrderCancel" min="0" value="0" />
+  </div>
+
+  <!-- Shipping Delay -->
+  <div class="form-section">
+    <label for="shippingDelay">Shipping Delay Chats</label>
+    <input type="number" id="shippingDelay" min="0" value="0" />
+  </div>
+  
+  <!-- Submit Button -->
+  <button type="submit">Submit</button>
+</form>
+
+<!-- The final "report" or summary after submission -->
+<div id="submissionReport" class="report hidden">
+  <p><strong>Submission Summary:</strong></p>
+  <div id="summaryContent"></div>
+  <p>Please post this summary in the CS channel.</p>
+  <button id="newResponseBtn">Submit Another Response</button>
+</div>
+
+<script>
+  // Replace this with your actual Web App URL from Google Apps Script
+  const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+  
+  const reportForm = document.getElementById("reportForm");
+  const submissionReport = document.getElementById("submissionReport");
+  const summaryContent = document.getElementById("summaryContent");
+  const newResponseBtn = document.getElementById("newResponseBtn");
+  
+  reportForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    // 1) Gather all form data
+    const formData = {
+      agentName: document.getElementById("agentName").value,
+      dateTime: document.getElementById("dateTime").value,
+      totalChats: document.getElementById("totalChats").value,
+      
+      // Billing
+      billingTotal: document.getElementById("billingTotal").value,
+      chargedAfterCancelation: document.getElementById("chargedAfterCancelation").value,
+      with14DaysMBG: document.getElementById("with14DaysMBG").value,
+      addOnsExtraCharges: document.getElementById("addOnsExtraCharges").value,
+      wantingToPayBill: document.getElementById("wantingToPayBill").value,
+      extensions: document.getElementById("extensions").value,
+      
+      // Tech
+      techTotal: document.getElementById("techTotal").value,
+      activation: document.getElementById("activation").value,
+      slowSpeeds: document.getElementById("slowSpeeds").value,
+      internetStopping: document.getElementById("internetStopping").value,
+      internetNotWorkingResume: document.getElementById("internetNotWorkingResume").value,
+      replacements: document.getElementById("replacements").value,
+      
+      // Cancellation
+      cancellationTotal: document.getElementById("cancellationTotal").value,
+      foundAnotherProvider: document.getElementById("foundAnotherProvider").value,
+      cancelSlowSpeeds: document.getElementById("cancelSlowSpeeds").value,
+      notConsistentEnough: document.getElementById("notConsistentEnough").value,
+      noLongerNeeded: document.getElementById("noLongerNeeded").value,
+      customerService: document.getElementById("customerService").value,
+      tooExpensive: document.getElementById("tooExpensive").value,
+      freeTrialMisunderstanding: document.getElementById("freeTrialMisunderstanding").value,
+      preOrderCancel: document.getElementById("preOrderCancel").value,
+      
+      // Shipping Delay
+      shippingDelay: document.getElementById("shippingDelay").value
+    };
+    
+    // 2) Send data to Google Apps Script Web App
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.status === "success") {
+        // 3) Show summary on the page
+        let summaryHtml = `
+          <ul>
+            <li><strong>Agent Name:</strong> ${formData.agentName}</li>
+            <li><strong>Date & Hour:</strong> ${formData.dateTime}</li>
+            <li><strong>Total Chats:</strong> ${formData.totalChats}</li>
+            <li><strong>Billing Total:</strong> ${formData.billingTotal}</li>
+            <li><strong>Tech Total:</strong> ${formData.techTotal}</li>
+            <li><strong>Cancellation Total:</strong> ${formData.cancellationTotal}</li>
+            <li><strong>Shipping Delay:</strong> ${formData.shippingDelay}</li>
+          </ul>
+          (Full breakdown is in the Google Sheet!)
+        `;
+        
+        summaryContent.innerHTML = summaryHtml;
+        submissionReport.classList.remove("hidden");
+        
+        // Hide the form
+        reportForm.classList.add("hidden");
+        
+      } else {
+        alert("Error submitting data: " + response.message);
+      }
+    })
+    .catch(err => {
+      alert("Something went wrong. " + err);
+      console.error(err);
+    });
+  });
+
+  // Reset form to submit another response
+  newResponseBtn.addEventListener("click", function() {
+    // Show the form again
+    reportForm.classList.remove("hidden");
+    // Hide the summary
+    submissionReport.classList.add("hidden");
+    // Reset form fields
+    reportForm.reset();
+  });
+</script>
+
+</body>
+</html>
