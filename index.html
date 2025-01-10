@@ -1,393 +1,318 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Agent Chat Reporting</title>
-  <!-- Example Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
+  
+  <!-- Bootstrap 5 CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet"
-  />
+  >
+  
   <style>
-    /* GLOBAL STYLES */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: "Open Sans", Arial, sans-serif;
-      background: linear-gradient(120deg, #f0f4ff, #ffffff);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      background-color: #f8f9fa;
     }
-    h1, h2, h3, h4 {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    /* CONTAINER FOR THE FORM */
-    .form-container {
-      background-color: #ffffff;
-      border-radius: 8px;
-      max-width: 700px;
-      width: 100%;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* FORM HEADER */
-    .form-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .form-header h1 {
-      color: #333;
-      font-size: 1.75rem;
-    }
-
-    /* FORM SECTION STYLES */
-    .form-section {
-      margin-bottom: 1rem;
-    }
-    .form-section label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.3rem;
-      color: #444;
-    }
-
-    .form-section select,
-    .form-section input[type="datetime-local"],
-    .form-section input[type="number"] {
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 0.5rem;
-      width: 100%;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      transition: border-color 0.2s;
-    }
-    .form-section select:focus,
-    .form-section input[type="datetime-local"]:focus,
-    .form-section input[type="number"]:focus {
-      outline: none;
-      border-color: #6a8dfa;
-    }
-
-    /* SUBMIT BUTTON */
-    .submit-btn {
-      background-color: #6a8dfa;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s, opacity 0.2s;
-    }
-    .submit-btn:hover {
-      background-color: #5a7dd8;
-    }
-    .submit-btn:active {
-      opacity: 0.9;
-    }
-
-    /* SUBMISSION REPORT */
-    .report {
-      background: #ffffff;
-      border: 2px solid #d9e0ff;
-      border-radius: 6px;
-      padding: 1.5rem;
-      margin-top: 1rem;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-    }
-    .report p {
-      margin-bottom: 1rem;
-    }
-    .report strong {
-      color: #333;
-    }
-    #summaryContent ul {
-      list-style: none;
-      padding: 0;
-    }
-    #summaryContent li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* NEW RESPONSE BUTTON */
-    .new-response-btn {
-      background-color: #6a8dfa;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s, opacity 0.2s;
-    }
-    .new-response-btn:hover {
-      background-color: #5a7dd8;
-    }
-    .new-response-btn:active {
-      opacity: 0.9;
-    }
-
-    /* HIDE/SHOW UTILITY CLASS */
     .hidden {
-      display: none;
-    }
-
-    /* RESPONSIVE DESIGN */
-    @media (max-width: 600px) {
-      .form-container {
-        padding: 1rem;
-      }
-      .form-section input,
-      .form-section select {
-        font-size: 0.9rem;
-      }
-      h1 {
-        font-size: 1.4rem;
-      }
+      display: none !important;
     }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
-    <div class="form-header">
-      <h1>Agent Chat Reporting Form</h1>
+<div class="container my-5">
+  <h1 class="text-center mb-4">Agent Chat Reporting Form</h1>
+
+  <form id="reportForm" class="row g-3">
+    <!-- Agent Name -->
+    <div class="col-12">
+      <label for="agentName" class="form-label fw-bold">Name of the Agent</label>
+      <select id="agentName" class="form-select" required>
+        <option value="">-- Select Agent --</option>
+        <option value="Agent 1">Ahmed</option>
+        <option value="Agent 2">Sam</option>
+        <option value="Agent 3">Rayyan</option>
+        <option value="Agent 4">Max</option>
+        <option value="Agent 5">Justin</option>
+        <option value="Agent 6">Mark</option>
+        <option value="Agent 7">Donald</option>
+        <option value="Agent 8">Danial</option>
+        <option value="Agent 9">Agent 9</option>
+        <option value="Agent 10">Agent 10</option>
+        <option value="Agent 11">Agent 11</option>
+        <option value="Agent 12">Agent 12</option>
+      </select>
     </div>
 
-    <!-- FORM -->
-    <form id="reportForm">
-      <!-- Agent Name -->
-      <div class="form-section">
-        <label for="agentName">Name of the Agent</label>
-        <select id="agentName" required>
-          <option value="">-- Select Agent --</option>
-          <option value="Agent 1">Danial</option>
-          <option value="Agent 2">Donald</option>
-          <option value="Agent 3">Justin</option>
-          <option value="Agent 4">Max</option>
-          <option value="Agent 5">Mark</option>
-          <option value="Agent 6">Ahmad</option>
-          <option value="Agent 7">Rayyan</option>
-          <option value="Agent 8">Sam</option>
-        </select>
-      </div>
-
-      <!-- Date and Hour (CST) -->
-      <div class="form-section">
-        <label for="dateTime">Date &amp; Hour (CST)</label>
-        <input type="datetime-local" id="dateTime" required />
-      </div>
-
-      <!-- Total Number of Chats -->
-      <div class="form-section">
-        <label for="totalChats">Total Number of Chats</label>
-        <input type="number" id="totalChats" min="0" required />
-      </div>
-
-      <!-- Billing Category -->
-      <div class="form-section">
-        <label for="billingTotal">Billing - Total Chats</label>
-        <input type="number" id="billingTotal" min="0" value="0" required />
-
-        <label>Charged After Cancelation</label>
-        <input type="number" id="chargedAfterCancelation" min="0" value="0" />
-
-        <label>With 14 days MBG</label>
-        <input type="number" id="with14DaysMBG" min="0" value="0" />
-
-        <label>Add-ons/Extra Charges</label>
-        <input type="number" id="addOnsExtraCharges" min="0" value="0" />
-
-        <label>Wanting to Pay Their Bill</label>
-        <input type="number" id="wantingToPayBill" min="0" value="0" />
-
-        <label>Extensions</label>
-        <input type="number" id="extensions" min="0" value="0" />
-      </div>
-
-      <!-- Tech Category -->
-      <div class="form-section">
-        <label for="techTotal">Tech - Total Chats</label>
-        <input type="number" id="techTotal" min="0" value="0" required />
-
-        <label>Activation</label>
-        <input type="number" id="activation" min="0" value="0" />
-
-        <label>Slow Speeds</label>
-        <input type="number" id="slowSpeeds" min="0" value="0" />
-
-        <label>Internet Stopping Out of Nowhere</label>
-        <input type="number" id="internetStopping" min="0" value="0" />
-
-        <label>Internet Not Working After Resuming Service</label>
-        <input type="number" id="internetNotWorkingResume" min="0" value="0" />
-
-        <label>Replacements (Replacement Activation)</label>
-        <input type="number" id="replacements" min="0" value="0" />
-      </div>
-
-      <!-- Cancelation Category -->
-      <div class="form-section">
-        <label for="cancellationTotal">Cancelation - Total Chats</label>
-        <input type="number" id="cancellationTotal" min="0" value="0" required />
-
-        <label>Found Another Provider</label>
-        <input type="number" id="foundAnotherProvider" min="0" value="0" />
-
-        <label>Slow Speeds (Cancel)</label>
-        <input type="number" id="cancelSlowSpeeds" min="0" value="0" />
-
-        <label>Not Consistent Enough</label>
-        <input type="number" id="notConsistentEnough" min="0" value="0" />
-
-        <label>No Longer Needed</label>
-        <input type="number" id="noLongerNeeded" min="0" value="0" />
-
-        <label>Customer Service</label>
-        <input type="number" id="customerService" min="0" value="0" />
-
-        <label>Too Expensive</label>
-        <input type="number" id="tooExpensive" min="0" value="0" />
-
-        <label>Thought it was a 14 Days Free Trial</label>
-        <input type="number" id="freeTrialMisunderstanding" min="0" value="0" />
-
-        <label>Pre Order Cancelation</label>
-        <input type="number" id="preOrderCancel" min="0" value="0" />
-      </div>
-
-      <!-- Shipping Delay -->
-      <div class="form-section">
-        <label for="shippingDelay">Shipping Delay Chats</label>
-        <input type="number" id="shippingDelay" min="0" value="0" />
-      </div>
-
-      <!-- SUBMIT BUTTON -->
-      <button type="submit" class="submit-btn">Submit</button>
-    </form>
-
-    <!-- The final "report" or summary after submission -->
-    <div id="submissionReport" class="report hidden">
-      <p><strong>Submission Summary:</strong></p>
-      <div id="summaryContent"></div>
-      <p>Please post this summary in the CS channel.</p>
-      <button id="newResponseBtn" class="new-response-btn">Submit Another Response</button>
+    <!-- Date and Hour (CST) -->
+    <div class="col-md-6">
+      <label for="dateTime" class="form-label fw-bold">Date &amp; Hour (CST)</label>
+      <input type="datetime-local" id="dateTime" class="form-control" required />
     </div>
 
-  </div><!-- /.form-container -->
+    <!-- Total Chats -->
+    <div class="col-md-6">
+      <label for="totalChats" class="form-label fw-bold">Total Number of Chats</label>
+      <input type="number" id="totalChats" class="form-control" min="0" required />
+    </div>
 
-  <script>
-    // Replace this with your actual Web App URL from Google Apps Script
-    const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
-    
-    const reportForm = document.getElementById("reportForm");
-    const submissionReport = document.getElementById("submissionReport");
-    const summaryContent = document.getElementById("summaryContent");
-    const newResponseBtn = document.getElementById("newResponseBtn");
+    <!-- Billing Category (Card) -->
+    <div class="col-12">
+      <div class="card mt-3">
+        <div class="card-header bg-primary text-white">
+          <strong>Billing Category</strong>
+        </div>
+        <div class="card-body row g-3">
+          <div class="col-md-4">
+            <label for="billingTotal" class="form-label">Billing - Total Chats</label>
+            <input type="number" id="billingTotal" class="form-control" min="0" value="0" required>
+          </div>
+          <div class="col-md-4">
+            <label for="chargedAfterCancelation" class="form-label">Charged After Cancelation</label>
+            <input type="number" id="chargedAfterCancelation" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="with14DaysMBG" class="form-label">With 14 Days MBG</label>
+            <input type="number" id="with14DaysMBG" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="addOnsExtraCharges" class="form-label">Add-ons/Extra Charges</label>
+            <input type="number" id="addOnsExtraCharges" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="wantingToPayBill" class="form-label">Wanting to Pay Their Bill</label>
+            <input type="number" id="wantingToPayBill" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="extensions" class="form-label">Extensions</label>
+            <input type="number" id="extensions" class="form-control" min="0" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
 
-    reportForm.addEventListener("submit", function(e) {
-      e.preventDefault();
+    <!-- Tech Category (Card) -->
+    <div class="col-12">
+      <div class="card mt-3">
+        <div class="card-header bg-success text-white">
+          <strong>Tech Category</strong>
+        </div>
+        <div class="card-body row g-3">
+          <div class="col-md-4">
+            <label for="techTotal" class="form-label">Tech - Total Chats</label>
+            <input type="number" id="techTotal" class="form-control" min="0" value="0" required>
+          </div>
+          <div class="col-md-4">
+            <label for="activation" class="form-label">Activation</label>
+            <input type="number" id="activation" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="slowSpeeds" class="form-label">Slow Speeds</label>
+            <input type="number" id="slowSpeeds" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="internetStopping" class="form-label">Internet Stopping Out of Nowhere</label>
+            <input type="number" id="internetStopping" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="internetNotWorkingResume" class="form-label">Internet Not Working (After Resume)</label>
+            <input type="number" id="internetNotWorkingResume" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="replacements" class="form-label">Replacements (Activation)</label>
+            <input type="number" id="replacements" class="form-control" min="0" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cancelation Category (Card) -->
+    <div class="col-12">
+      <div class="card mt-3">
+        <div class="card-header bg-warning">
+          <strong>Cancelation Category</strong>
+        </div>
+        <div class="card-body row g-3">
+          <div class="col-md-4">
+            <label for="cancellationTotal" class="form-label">Cancelation - Total Chats</label>
+            <input type="number" id="cancellationTotal" class="form-control" min="0" value="0" required>
+          </div>
+          <div class="col-md-4">
+            <label for="foundAnotherProvider" class="form-label">Found Another Provider</label>
+            <input type="number" id="foundAnotherProvider" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="cancelSlowSpeeds" class="form-label">Slow Speeds (Cancel)</label>
+            <input type="number" id="cancelSlowSpeeds" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="notConsistentEnough" class="form-label">Not Consistent Enough</label>
+            <input type="number" id="notConsistentEnough" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="noLongerNeeded" class="form-label">No Longer Needed</label>
+            <input type="number" id="noLongerNeeded" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="customerService" class="form-label">Customer Service</label>
+            <input type="number" id="customerService" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="tooExpensive" class="form-label">Too Expensive</label>
+            <input type="number" id="tooExpensive" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="freeTrialMisunderstanding" class="form-label">Thought it was a 14 Days Free Trial</label>
+            <input type="number" id="freeTrialMisunderstanding" class="form-control" min="0" value="0">
+          </div>
+          <div class="col-md-4">
+            <label for="preOrderCancel" class="form-label">Pre-Order Cancelation</label>
+            <input type="number" id="preOrderCancel" class="form-control" min="0" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping Delay -->
+    <div class="col-12">
+      <div class="card mt-3">
+        <div class="card-header bg-info">
+          <strong>Shipping Delay</strong>
+        </div>
+        <div class="card-body">
+          <label for="shippingDelay" class="form-label">Shipping Delay Chats</label>
+          <input type="number" id="shippingDelay" class="form-control" min="0" value="0">
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT BUTTON -->
+    <div class="col-12 text-center mt-4">
+      <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+    </div>
+  </form>
+
+  <!-- The final "report" or summary after submission -->
+  <div id="submissionReport" class="hidden mt-5">
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <strong>Submission Summary</strong>
+      </div>
+      <div class="card-body">
+        <div id="summaryContent" class="mb-3"></div>
+        <p class="fw-semibold">Please post this summary in the CS channel.</p>
+        <button id="newResponseBtn" class="btn btn-outline-secondary">Submit Another Response</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /.container -->
+
+<!-- Replace this with your actual Web App URL from Google Apps Script -->
+<script>
+  const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+  const reportForm = document.getElementById("reportForm");
+  const submissionReport = document.getElementById("submissionReport");
+  const summaryContent = document.getElementById("summaryContent");
+  const newResponseBtn = document.getElementById("newResponseBtn");
+
+  reportForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Gather form data
+    const formData = {
+      agentName: document.getElementById("agentName").value,
+      dateTime: document.getElementById("dateTime").value,
+      totalChats: document.getElementById("totalChats").value,
       
-      // 1) Gather all form data
-      const formData = {
-        agentName: document.getElementById("agentName").value,
-        dateTime: document.getElementById("dateTime").value,
-        totalChats: document.getElementById("totalChats").value,
-        
-        // Billing
-        billingTotal: document.getElementById("billingTotal").value,
-        chargedAfterCancelation: document.getElementById("chargedAfterCancelation").value,
-        with14DaysMBG: document.getElementById("with14DaysMBG").value,
-        addOnsExtraCharges: document.getElementById("addOnsExtraCharges").value,
-        wantingToPayBill: document.getElementById("wantingToPayBill").value,
-        extensions: document.getElementById("extensions").value,
-        
-        // Tech
-        techTotal: document.getElementById("techTotal").value,
-        activation: document.getElementById("activation").value,
-        slowSpeeds: document.getElementById("slowSpeeds").value,
-        internetStopping: document.getElementById("internetStopping").value,
-        internetNotWorkingResume: document.getElementById("internetNotWorkingResume").value,
-        replacements: document.getElementById("replacements").value,
-        
-        // Cancellation
-        cancellationTotal: document.getElementById("cancellationTotal").value,
-        foundAnotherProvider: document.getElementById("foundAnotherProvider").value,
-        cancelSlowSpeeds: document.getElementById("cancelSlowSpeeds").value,
-        notConsistentEnough: document.getElementById("notConsistentEnough").value,
-        noLongerNeeded: document.getElementById("noLongerNeeded").value,
-        customerService: document.getElementById("customerService").value,
-        tooExpensive: document.getElementById("tooExpensive").value,
-        freeTrialMisunderstanding: document.getElementById("freeTrialMisunderstanding").value,
-        preOrderCancel: document.getElementById("preOrderCancel").value,
-        
-        // Shipping Delay
-        shippingDelay: document.getElementById("shippingDelay").value
-      };
+      // Billing
+      billingTotal: document.getElementById("billingTotal").value,
+      chargedAfterCancelation: document.getElementById("chargedAfterCancelation").value,
+      with14DaysMBG: document.getElementById("with14DaysMBG").value,
+      addOnsExtraCharges: document.getElementById("addOnsExtraCharges").value,
+      wantingToPayBill: document.getElementById("wantingToPayBill").value,
+      extensions: document.getElementById("extensions").value,
       
-      // 2) Send data to Google Apps Script Web App
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(res => res.json())
-      .then(response => {
-        if (response.status === "success") {
-          // 3) Show summary on the page
-          let summaryHtml = `
-            <ul>
-              <li><strong>Agent Name:</strong> ${formData.agentName}</li>
-              <li><strong>Date & Hour:</strong> ${formData.dateTime}</li>
-              <li><strong>Total Chats:</strong> ${formData.totalChats}</li>
-              <li><strong>Billing Total:</strong> ${formData.billingTotal}</li>
-              <li><strong>Tech Total:</strong> ${formData.techTotal}</li>
-              <li><strong>Cancellation Total:</strong> ${formData.cancellationTotal}</li>
-              <li><strong>Shipping Delay:</strong> ${formData.shippingDelay}</li>
-            </ul>
-            <p>(Full breakdown is in the Google Sheet!)</p>
-          `;
-          
-          summaryContent.innerHTML = summaryHtml;
-          submissionReport.classList.remove("hidden");
-          
-          // Hide the form
-          reportForm.classList.add("hidden");
-          
-        } else {
-          alert("Error submitting data: " + (response.message || "Unknown error"));
-        }
-      })
-      .catch(err => {
-        alert("Something went wrong. " + err);
-        console.error(err);
-      });
-    });
+      // Tech
+      techTotal: document.getElementById("techTotal").value,
+      activation: document.getElementById("activation").value,
+      slowSpeeds: document.getElementById("slowSpeeds").value,
+      internetStopping: document.getElementById("internetStopping").value,
+      internetNotWorkingResume: document.getElementById("internetNotWorkingResume").value,
+      replacements: document.getElementById("replacements").value,
+      
+      // Cancellation
+      cancellationTotal: document.getElementById("cancellationTotal").value,
+      foundAnotherProvider: document.getElementById("foundAnotherProvider").value,
+      cancelSlowSpeeds: document.getElementById("cancelSlowSpeeds").value,
+      notConsistentEnough: document.getElementById("notConsistentEnough").value,
+      noLongerNeeded: document.getElementById("noLongerNeeded").value,
+      customerService: document.getElementById("customerService").value,
+      tooExpensive: document.getElementById("tooExpensive").value,
+      freeTrialMisunderstanding: document.getElementById("freeTrialMisunderstanding").value,
+      preOrderCancel: document.getElementById("preOrderCancel").value,
 
-    // Reset form to submit another response
-    newResponseBtn.addEventListener("click", function() {
-      // Show the form again
-      reportForm.classList.remove("hidden");
-      // Hide the summary
-      submissionReport.classList.add("hidden");
-      // Reset form fields
-      reportForm.reset();
+      // Shipping Delay
+      shippingDelay: document.getElementById("shippingDelay").value
+    };
+
+    // POST to Google Apps Script
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.status === "success") {
+        // Build summary
+        let summaryHtml = `
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Agent Name:</strong> ${formData.agentName}</li>
+            <li class="list-group-item"><strong>Date & Hour (CST):</strong> ${formData.dateTime}</li>
+            <li class="list-group-item"><strong>Total Chats:</strong> ${formData.totalChats}</li>
+            <li class="list-group-item"><strong>Billing Total:</strong> ${formData.billingTotal}</li>
+            <li class="list-group-item"><strong>Tech Total:</strong> ${formData.techTotal}</li>
+            <li class="list-group-item"><strong>Cancellation Total:</strong> ${formData.cancellationTotal}</li>
+            <li class="list-group-item"><strong>Shipping Delay:</strong> ${formData.shippingDelay}</li>
+          </ul>
+          <p class="mt-3 mb-0">(Full breakdown is in the Google Sheet!)</p>
+        `;
+
+        summaryContent.innerHTML = summaryHtml;
+        submissionReport.classList.remove("hidden");
+
+        // Hide the form
+        reportForm.classList.add("hidden");
+        
+      } else {
+        alert("Error submitting data: " + (response.message || "Unknown error"));
+      }
+    })
+    .catch(err => {
+      alert("Something went wrong. " + err);
+      console.error(err);
     });
-  </script>
+  });
+
+  // Reset form to submit another response
+  newResponseBtn.addEventListener("click", function() {
+    // Show the form again
+    reportForm.classList.remove("hidden");
+    // Hide the summary
+    submissionReport.classList.add("hidden");
+    // Reset form fields
+    reportForm.reset();
+  });
+</script>
+
+<!-- Bootstrap 5 JS (Optional, for any interactive Bootstrap components) -->
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
 </body>
 </html>
+
 
