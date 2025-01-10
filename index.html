@@ -1,321 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Agent Chat Reporting</title>
-  
-  <!-- Bootstrap 5 CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Chat Logging Form</title>
+  <!-- Bootstrap CSS -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet"
-  >
-  
+  />
   <style>
-    body {
-      background-color: #f8f9fa;
+    /* Some custom animations and hover effects */
+    .hover-animate:hover {
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-    .hidden {
-      display: none !important;
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
-<body>
+<body class="bg-light">
 
-<div class="container my-5">
-  <h1 class="text-center mb-4">Agent Chat Reporting Form</h1>
+  <div class="container my-5">
 
-  <form id="reportForm" class="row g-3">
-    <!-- Agent Name -->
-    <div class="col-12">
-      <label for="agentName" class="form-label fw-bold">Name of the Agent</label>
-      <select id="agentName" class="form-select" required>
-        <option value="">-- Select Agent --</option>
-        <option value="Agent 1">Ahmed</option>
-        <option value="Agent 2">Sam</option>
-        <option value="Agent 3">Rayyan</option>
-        <option value="Agent 4">Max</option>
-        <option value="Agent 5">Justin</option>
-        <option value="Agent 6">Mark</option>
-        <option value="Agent 7">Donald</option>
-        <option value="Agent 8">Danial</option>
-        <option value="Agent 9">Agent 9</option>
-        <option value="Agent 10">Agent 10</option>
-        <option value="Agent 11">Agent 11</option>
-        <option value="Agent 12">Agent 12</option>
-      </select>
-    </div>
+    <h1 class="mb-4 text-center">Agent Chat Logging Form</h1>
+    <p class="text-center">Please fill out the form below. Your response will be recorded in Google Sheets.</p>
 
-    <!-- Date and Hour (CST) -->
-    <div class="col-md-6">
-      <label for="dateTime" class="form-label fw-bold">Date &amp; Hour (CST)</label>
-      <input type="datetime-local" id="dateTime" class="form-control" required />
-    </div>
+    <!-- FORM START -->
+    <form id="chatForm" class="p-4 bg-white rounded hover-animate">
+      <!-- Agent Name -->
+      <div class="mb-3">
+        <label for="agentName" class="form-label fw-bold">Name of the Agent</label>
+        <select class="form-select" name="agentName" id="agentName" required>
+          <option value="">-- Select Agent --</option>
+          <option value="Agent A">Agent A</option>
+          <option value="Agent B">Agent B</option>
+          <option value="Agent C">Agent C</option>
+          <option value="Agent D">Agent D</option>
+          <option value="Agent E">Agent E</option>
+          <option value="Agent F">Agent F</option>
+          <option value="Agent G">Agent G</option>
+          <option value="Agent H">Agent H</option>
+        </select>
+      </div>
 
-    <!-- Total Chats -->
-    <div class="col-md-6">
-      <label for="totalChats" class="form-label fw-bold">Total Number of Chats</label>
-      <input type="number" id="totalChats" class="form-control" min="0" required />
-    </div>
+      <!-- Date & Hour (CST) -->
+      <div class="mb-3">
+        <label for="dateHour" class="form-label fw-bold">Date and Hour (CST)</label>
+        <input 
+          type="datetime-local" 
+          class="form-control" 
+          name="dateHour" 
+          id="dateHour" 
+          required
+        >
+      </div>
 
-    <!-- Billing Category (Card) -->
-    <div class="col-12">
-      <div class="card mt-3">
-        <div class="card-header bg-primary text-white">
-          <strong>Billing Category</strong>
+      <!-- Total Number of Chats -->
+      <div class="mb-3">
+        <label for="totalChats" class="form-label fw-bold">Total Number of Chats</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="totalChats" 
+          id="totalChats" 
+          required
+        >
+      </div>
+
+      <hr class="my-4">
+
+      <!-- 1st Category: Billing -->
+      <h5 class="mb-3">1) Billing</h5>
+      <div class="mb-3">
+        <label for="billingTotal" class="form-label fw-bold">Billing Total Chats</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="billingTotal" 
+          id="billingTotal"
+        >
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="chargedAfterCancelation" class="form-label">Charged after cancelation</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="chargedAfterCancelation"
+            id="chargedAfterCancelation"
+          >
         </div>
-        <div class="card-body row g-3">
-          <div class="col-md-4">
-            <label for="billingTotal" class="form-label">Billing - Total Chats</label>
-            <input type="number" id="billingTotal" class="form-control" min="0" value="0" required>
-          </div>
-          <div class="col-md-4">
-            <label for="chargedAfterCancelation" class="form-label">Charged After Cancelation</label>
-            <input type="number" id="chargedAfterCancelation" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="with14DaysMBG" class="form-label">With 14 Days MBG</label>
-            <input type="number" id="with14DaysMBG" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="addOnsExtraCharges" class="form-label">Add-ons/Extra Charges</label>
-            <input type="number" id="addOnsExtraCharges" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="wantingToPayBill" class="form-label">Wanting to Pay Their Bill</label>
-            <input type="number" id="wantingToPayBill" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="extensions" class="form-label">Extensions</label>
-            <input type="number" id="extensions" class="form-control" min="0" value="0">
-          </div>
+        <div class="col-md-6">
+          <label for="with14DaysMBG" class="form-label">With 14 days MBG</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="with14DaysMBG"
+            id="with14DaysMBG"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="addOnsExtraCharges" class="form-label">Add-ons/extra charges</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="addOnsExtraCharges" 
+            id="addOnsExtraCharges"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="wantingToPayBill" class="form-label">Wanting to pay their bill</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="wantingToPayBill"
+            id="wantingToPayBill"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="extensions" class="form-label">Extensions</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="extensions"
+            id="extensions"
+          >
         </div>
       </div>
-    </div>
 
-    <!-- Tech Category (Card) -->
-    <div class="col-12">
-      <div class="card mt-3">
-        <div class="card-header bg-success text-white">
-          <strong>Tech Category</strong>
+      <hr class="my-4">
+
+      <!-- 2nd Category: Tech -->
+      <h5 class="mb-3">2) Tech</h5>
+      <div class="mb-3">
+        <label for="techTotal" class="form-label fw-bold">Tech Total Chats</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="techTotal" 
+          id="techTotal"
+        >
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="activation" class="form-label">Activation</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="activation"
+            id="activation"
+          >
         </div>
-        <div class="card-body row g-3">
-          <div class="col-md-4">
-            <label for="techTotal" class="form-label">Tech - Total Chats</label>
-            <input type="number" id="techTotal" class="form-control" min="0" value="0" required>
-          </div>
-          <div class="col-md-4">
-            <label for="activation" class="form-label">Activation</label>
-            <input type="number" id="activation" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="slowSpeeds" class="form-label">Slow Speeds</label>
-            <input type="number" id="slowSpeeds" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="internetStopping" class="form-label">Internet Stopping Out of Nowhere</label>
-            <input type="number" id="internetStopping" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="internetNotWorkingResume" class="form-label">Internet Not Working (After Resume)</label>
-            <input type="number" id="internetNotWorkingResume" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="replacements" class="form-label">Replacements (Activation)</label>
-            <input type="number" id="replacements" class="form-control" min="0" value="0">
-          </div>
+        <div class="col-md-6">
+          <label for="slowSpeeds" class="form-label">Slow speeds</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="slowSpeeds" 
+            id="slowSpeeds"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="internetStopping" class="form-label">Internet stopping out of nowhere</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="internetStopping" 
+            id="internetStopping"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="notWorkingAfterResume" class="form-label">Internet not working after resuming service</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="notWorkingAfterResume" 
+            id="notWorkingAfterResume"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="replacements" class="form-label">Replacements (replacement activation)</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="replacements" 
+            id="replacements"
+          >
         </div>
       </div>
-    </div>
 
-    <!-- Cancelation Category (Card) -->
-    <div class="col-12">
-      <div class="card mt-3">
-        <div class="card-header bg-warning">
-          <strong>Cancelation Category</strong>
+      <hr class="my-4">
+
+      <!-- 3rd Category: Cancelation -->
+      <h5 class="mb-3">3) Cancelation</h5>
+      <div class="mb-3">
+        <label for="cancelTotal" class="form-label fw-bold">Cancelation Total Chats</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="cancelTotal" 
+          id="cancelTotal"
+        >
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="foundAnother" class="form-label">Found another provider</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="foundAnother"
+            id="foundAnother"
+          >
         </div>
-        <div class="card-body row g-3">
-          <div class="col-md-4">
-            <label for="cancellationTotal" class="form-label">Cancelation - Total Chats</label>
-            <input type="number" id="cancellationTotal" class="form-control" min="0" value="0" required>
-          </div>
-          <div class="col-md-4">
-            <label for="foundAnotherProvider" class="form-label">Found Another Provider</label>
-            <input type="number" id="foundAnotherProvider" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="cancelSlowSpeeds" class="form-label">Slow Speeds (Cancel)</label>
-            <input type="number" id="cancelSlowSpeeds" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="notConsistentEnough" class="form-label">Not Consistent Enough</label>
-            <input type="number" id="notConsistentEnough" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="noLongerNeeded" class="form-label">No Longer Needed</label>
-            <input type="number" id="noLongerNeeded" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="customerService" class="form-label">Customer Service</label>
-            <input type="number" id="customerService" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="tooExpensive" class="form-label">Too Expensive</label>
-            <input type="number" id="tooExpensive" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="freeTrialMisunderstanding" class="form-label">Thought it was a 14 Days Free Trial</label>
-            <input type="number" id="freeTrialMisunderstanding" class="form-control" min="0" value="0">
-          </div>
-          <div class="col-md-4">
-            <label for="preOrderCancel" class="form-label">Pre-Order Cancelation</label>
-            <input type="number" id="preOrderCancel" class="form-control" min="0" value="0">
-          </div>
+        <div class="col-md-6">
+          <label for="slowSpeedsCancel" class="form-label">Slow speeds</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="slowSpeedsCancel" 
+            id="slowSpeedsCancel"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="notConsistent" class="form-label">Not consistent enough</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="notConsistent"
+            id="notConsistent"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="noLongerNeeded" class="form-label">No longer needed</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="noLongerNeeded"
+            id="noLongerNeeded"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="customerService" class="form-label">Customer service</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="customerService"
+            id="customerService"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="tooExpensive" class="form-label">Too Expensive</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="tooExpensive"
+            id="tooExpensive"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="freeTrial" class="form-label">Thought it was a 14 days free trial</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="freeTrial"
+            id="freeTrial"
+          >
+        </div>
+        <div class="col-md-6">
+          <label for="preOrderCancel" class="form-label">Pre Order cancelation</label>
+          <input 
+            type="number" 
+            class="form-control"
+            name="preOrderCancel"
+            id="preOrderCancel"
+          >
         </div>
       </div>
-    </div>
 
-    <!-- Shipping Delay -->
-    <div class="col-12">
-      <div class="card mt-3">
-        <div class="card-header bg-info">
-          <strong>Shipping Delay</strong>
-        </div>
-        <div class="card-body">
-          <label for="shippingDelay" class="form-label">Shipping Delay Chats</label>
-          <input type="number" id="shippingDelay" class="form-control" min="0" value="0">
-        </div>
-      </div>
-    </div>
+      <hr class="my-4">
 
-    <!-- SUBMIT BUTTON -->
-    <div class="col-12 text-center mt-4">
-      <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-    </div>
-  </form>
+      <!-- Shipping Delay Chats -->
+      <h5 class="mb-3">Shipping Delay Chats</h5>
+      <div class="mb-3">
+        <label for="shippingDelay" class="form-label">Shipping Delay Chats</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="shippingDelay" 
+          id="shippingDelay"
+        >
+      </div>
 
-  <!-- The final "report" or summary after submission -->
-  <div id="submissionReport" class="hidden mt-5">
-    <div class="card">
-      <div class="card-header bg-secondary text-white">
-        <strong>Submission Summary</strong>
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
       </div>
-      <div class="card-body">
-        <div id="summaryContent" class="mb-3"></div>
-        <p class="fw-semibold">Please post this summary in the CS channel.</p>
-        <button id="newResponseBtn" class="btn btn-outline-secondary">Submit Another Response</button>
-      </div>
+    </form>
+    <!-- FORM END -->
+
+    <!-- REPORT SECTION -->
+    <div id="reportSection" class="mt-5 fade-in" style="display: none;">
+      <h2>Submission Summary</h2>
+      <div id="reportContent" class="p-3 bg-white rounded"></div>
     </div>
   </div>
-</div><!-- /.container -->
 
-<!-- Replace this with your actual Web App URL from Google Apps Script -->
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsUu4IVxQ9HFubqa38S66kyDOvLed7ypDqWVwfGiz6C315e4Ttf9vY8i-TV1Dm9obc/exec";
 
-  const reportForm = document.getElementById("reportForm");
-  const submissionReport = document.getElementById("submissionReport");
-  const summaryContent = document.getElementById("summaryContent");
-  const newResponseBtn = document.getElementById("newResponseBtn");
+  <!-- Bootstrap JS (for some components if needed) -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
 
-  reportForm.addEventListener("submit", function(e) {
-    e.preventDefault();
+  <script>
+    const scriptURL = 'YOUR_APPS_SCRIPT_WEB_APP_URL'; // <-- REPLACE WITH YOUR DEPLOYED WEB APP URL
 
-    // Gather form data
-    const formData = {
-      agentName: document.getElementById("agentName").value,
-      dateTime: document.getElementById("dateTime").value,
-      totalChats: document.getElementById("totalChats").value,
-      
-      // Billing
-      billingTotal: document.getElementById("billingTotal").value,
-      chargedAfterCancelation: document.getElementById("chargedAfterCancelation").value,
-      with14DaysMBG: document.getElementById("with14DaysMBG").value,
-      addOnsExtraCharges: document.getElementById("addOnsExtraCharges").value,
-      wantingToPayBill: document.getElementById("wantingToPayBill").value,
-      extensions: document.getElementById("extensions").value,
-      
-      // Tech
-      techTotal: document.getElementById("techTotal").value,
-      activation: document.getElementById("activation").value,
-      slowSpeeds: document.getElementById("slowSpeeds").value,
-      internetStopping: document.getElementById("internetStopping").value,
-      internetNotWorkingResume: document.getElementById("internetNotWorkingResume").value,
-      replacements: document.getElementById("replacements").value,
-      
-      // Cancellation
-      cancellationTotal: document.getElementById("cancellationTotal").value,
-      foundAnotherProvider: document.getElementById("foundAnotherProvider").value,
-      cancelSlowSpeeds: document.getElementById("cancelSlowSpeeds").value,
-      notConsistentEnough: document.getElementById("notConsistentEnough").value,
-      noLongerNeeded: document.getElementById("noLongerNeeded").value,
-      customerService: document.getElementById("customerService").value,
-      tooExpensive: document.getElementById("tooExpensive").value,
-      freeTrialMisunderstanding: document.getElementById("freeTrialMisunderstanding").value,
-      preOrderCancel: document.getElementById("preOrderCancel").value,
+    const form = document.getElementById('chatForm');
+    const reportSection = document.getElementById('reportSection');
+    const reportContent = document.getElementById('reportContent');
 
-      // Shipping Delay
-      shippingDelay: document.getElementById("shippingDelay").value
-    };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // POST to Google Apps Script
-   
+      // Create a FormData object from the form
+      const formData = new FormData(form);
 
-      fetch(SCRIPT_URL, {
-  method: 'POST',
-  mode: 'no-cors',
-  body: JSON.stringify(formData),
-  headers: { 'Content-Type': 'application/json' },
-});
-    .then(res => res.json())
-    .then(response => {
-      if (response.status === "success") {
-        // Build summary
-        let summaryHtml = `
-          <ul class="list-group">
-            <li class="list-group-item"><strong>Agent Name:</strong> ${formData.agentName}</li>
-            <li class="list-group-item"><strong>Date & Hour (CST):</strong> ${formData.dateTime}</li>
-            <li class="list-group-item"><strong>Total Chats:</strong> ${formData.totalChats}</li>
-            <li class="list-group-item"><strong>Billing Total:</strong> ${formData.billingTotal}</li>
-            <li class="list-group-item"><strong>Tech Total:</strong> ${formData.techTotal}</li>
-            <li class="list-group-item"><strong>Cancellation Total:</strong> ${formData.cancellationTotal}</li>
-            <li class="list-group-item"><strong>Shipping Delay:</strong> ${formData.shippingDelay}</li>
-          </ul>
-          <p class="mt-3 mb-0">(Full breakdown is in the Google Sheet!)</p>
-        `;
+      // Convert FormData to a plain object for fetch
+      let plainFormData = {};
+      formData.forEach((value, key) => {
+        plainFormData[key] = value;
+      });
 
-        summaryContent.innerHTML = summaryHtml;
-        submissionReport.classList.remove("hidden");
+      // Submit to Apps Script using fetch
+      try {
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams(plainFormData).toString()
+        });
+        const json = await response.json();
 
-        // Hide the form
-        reportForm.classList.add("hidden");
-        
-      } else {
-        alert("Error submitting data: " + (response.message || "Unknown error"));
+        if (json.result === 'success') {
+          // Show a confirmation message + summary
+          showReport(plainFormData);
+          // Optionally, reset the form
+          form.reset();
+        } else {
+          alert("Something went wrong: " + JSON.stringify(json.error));
+        }
+
+      } catch (err) {
+        alert("Error submitting form: " + err.toString());
       }
-    })
-    .catch(err => {
-      alert("Something went wrong. " + err);
-      console.error(err);
     });
-  });
 
-  // Reset form to submit another response
-  newResponseBtn.addEventListener("click", function() {
-    // Show the form again
-    reportForm.classList.remove("hidden");
-    // Hide the summary
-    submissionReport.classList.add("hidden");
-    // Reset form fields
-    reportForm.reset();
-  });
-</script>
+    function showReport(data) {
+      // Build a quick summary HTML from the form data
+      const summaryHtml = `
+        <p><strong>Agent Name:</strong> ${data.agentName}</p>
+        <p><strong>Date & Hour (CST):</strong> ${data.dateHour}</p>
+        <p><strong>Total Number of Chats:</strong> ${data.totalChats}</p>
+        
+        <h5>Billing</h5>
+        <ul>
+          <li>Billing Total Chats: ${data.billingTotal}</li>
+          <li>Charged After Cancellation: ${data.chargedAfterCancelation}</li>
+          <li>With 14 days MBG: ${data.with14DaysMBG}</li>
+          <li>Add-ons/extra charges: ${data.addOnsExtraCharges}</li>
+          <li>Wanting to pay their bill: ${data.wantingToPayBill}</li>
+          <li>Extensions: ${data.extensions}</li>
+        </ul>
 
-<!-- Bootstrap 5 JS (Optional, for any interactive Bootstrap components) -->
-<script 
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-</script>
+        <h5>Tech</h5>
+        <ul>
+          <li>Tech Total Chats: ${data.techTotal}</li>
+          <li>Activation: ${data.activation}</li>
+          <li>Slow speeds: ${data.slowSpeeds}</li>
+          <li>Internet stopping out of nowhere: ${data.internetStopping}</li>
+          <li>Internet not working after resuming service: ${data.notWorkingAfterResume}</li>
+          <li>Replacements (replacement activation): ${data.replacements}</li>
+        </ul>
 
+        <h5>Cancelation</h5>
+        <ul>
+          <li>Cancelation Total Chats: ${data.cancelTotal}</li>
+          <li>Found another provider: ${data.foundAnother}</li>
+          <li>Slow speeds: ${data.slowSpeedsCancel}</li>
+          <li>Not consistent enough: ${data.notConsistent}</li>
+          <li>No longer needed: ${data.noLongerNeeded}</li>
+          <li>Customer service: ${data.customerService}</li>
+          <li>Too Expensive: ${data.tooExpensive}</li>
+          <li>Thought it was 14 days free trial: ${data.freeTrial}</li>
+          <li>Pre Order cancelation: ${data.preOrderCancel}</li>
+        </ul>
+
+        <h5>Shipping Delay Chats</h5>
+        <ul>
+          <li>Shipping Delay: ${data.shippingDelay}</li>
+        </ul>
+      `;
+
+      reportContent.innerHTML = summaryHtml;
+      reportSection.style.display = 'block';
+      reportSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
-
-
