@@ -9,7 +9,6 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
-        // Build the summary from submitted data
         let summaryHtml = `<p>${xhr.responseText}</p><hr>`;
         summaryHtml += "<h5>Your Submitted Data:</h5><ul>";
         for (let [key, value] of formData.entries()) {
@@ -19,7 +18,6 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
 
         document.getElementById("modalSummary").innerHTML = summaryHtml;
 
-        // Show Bootstrap modal
         const reportModal = new bootstrap.Modal(document.getElementById("reportModal"));
         reportModal.show();
 
