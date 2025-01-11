@@ -13,31 +13,36 @@
 <body>
   <div class="container my-5">
     <h1 class="text-center mb-4">Hourly Reporting Form</h1>
-    <form id="myForm" action="https://script.google.com/macros/s/AKfycbzSYrQUOgn8c0iZkoVF0x6sdjRCPfk7fGbb29E2CagyOVYE6b3vcvm7E9j1Lkp5EQp4/exec" method="post">
+    <form id="myForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec" method="post">
       
-      <!-- Agent Selection -->
-      <div class="mb-3">
-        <label for="agentName" class="form-label">Name of the Agent:</label>
-        <select class="form-select" id="agentName" name="agentName" required>
-          <option value="">Select an agent...</option>
-          <option value="Agent1">Agent1</option>
-          <option value="Agent2">Agent2</option>
-          <option value="Agent3">Agent3</option>
-          <option value="Agent4">Agent4</option>
-          <option value="Agent5">Agent5</option>
-          <option value="Agent6">Agent6</option>
-          <option value="Agent7">Agent7</option>
-          <option value="Agent8">Agent8</option>
-        </select>
-      </div>
-
-      <!-- Date and Hour Selection -->
-      <div class="mb-3 row">
-        <div class="col-md-6">
+      <!-- Agent Selection and Date/Hour -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <label for="agentName" class="form-label">Name of the Agent:</label>
+          <select class="form-select" id="agentName" name="agentName" required>
+            <option value="">Select an agent...</option>
+            <option value="Agent1">Agent1</option>
+            <option value="Agent2">Agent2</option>
+            <option value="Agent3">Agent3</option>
+            <option value="Agent4">Agent4</option>
+            <option value="Agent5">Agent5</option>
+            <option value="Agent6">Agent6</option>
+            <option value="Agent7">Agent7</option>
+            <option value="Agent8">Agent8</option>
+            <option value="Agent9">Agent9</option>
+            <option value="Agent10">Agent10</option>
+            <option value="Agent11">Agent11</option>
+            <option value="Agent12">Agent12</option>
+            <option value="Agent13">Agent13</option>
+            <option value="Agent14">Agent14</option>
+            <option value="Agent15">Agent15</option>
+          </select>
+        </div>
+        <div class="col-md-4">
           <label for="reportDate" class="form-label">Date:</label>
           <input type="date" class="form-control" id="reportDate" name="reportDate" required />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label for="hour" class="form-label">Hour of the Day (CST):</label>
           <select class="form-select" id="hour" name="hour" required>
             <option value="">Select hour...</option>
@@ -70,136 +75,241 @@
         </div>
       </div>
 
-      <!-- Total Chats -->
       <div class="mb-3">
         <label for="totalChats" class="form-label">Total Number of Chats:</label>
         <input type="number" class="form-control" id="totalChats" name="totalChats" required />
       </div>
 
       <!-- Billing Category -->
-      <h3 class="mt-4">Billing Total Chats</h3>
-      <div class="mb-3">
-        <label for="billingTotal" class="form-label">Billing Total Chats:</label>
-        <input type="number" class="form-control" id="billingTotal" name="billingTotal" required />
-      </div>
-      <div class="mb-3">
-        <label for="chargedAfterCancelation" class="form-label">Charged after cancellation:</label>
-        <input type="number" class="form-control" id="chargedAfterCancelation" name="chargedAfterCancelation" required />
-      </div>
-      <div class="mb-3">
-        <label for="with14DaysMBG" class="form-label">With 14 days MBG:</label>
-        <input type="number" class="form-control" id="with14DaysMBG" name="with14DaysMBG" required />
-      </div>
-      <div class="mb-3">
-        <label for="addOnsExtraCharges" class="form-label">Add-ons/extra charges:</label>
-        <input type="number" class="form-control" id="addOnsExtraCharges" name="addOnsExtraCharges" required />
-      </div>
-      <div class="mb-3">
-        <label for="wantingToPayBill" class="form-label">Wanting to pay their bill:</label>
-        <input type="number" class="form-control" id="wantingToPayBill" name="wantingToPayBill" required />
-      </div>
-      <div class="mb-3">
-        <label for="extensions" class="form-label">Extensions:</label>
-        <input type="number" class="form-control" id="extensions" name="extensions" required />
+      <div class="card mb-4">
+        <div class="card-header">Billing Total Chats</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="billingTotal" class="form-label">
+              Billing Total Chats: <output id="billingTotalOutput">0</output>
+            </label>
+            <input type="range" class="form-range" id="billingTotal" name="billingTotal" min="0" max="100" 
+              oninput="billingTotalOutput.value = this.value" required />
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="chargedAfterCancelation" class="form-label">
+                Charged after cancellation: <output id="chargedAfterCancelationOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="chargedAfterCancelation" name="chargedAfterCancelation" min="0" max="15"
+                oninput="chargedAfterCancelationOutput.value = this.value" required />
+            </div>
+            <div class="col-md-6">
+              <label for="with14DaysMBG" class="form-label">
+                With 14 days MBG: <output id="with14DaysMBGOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="with14DaysMBG" name="with14DaysMBG" min="0" max="15"
+                oninput="with14DaysMBGOutput.value = this.value" required />
+            </div>
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <label for="addOnsExtraCharges" class="form-label">
+                Add-ons/extra charges: <output id="addOnsExtraChargesOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="addOnsExtraCharges" name="addOnsExtraCharges" min="0" max="15"
+                oninput="addOnsExtraChargesOutput.value = this.value" required />
+            </div>
+            <div class="col-md-4">
+              <label for="wantingToPayBill" class="form-label">
+                Wanting to pay their bill: <output id="wantingToPayBillOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="wantingToPayBill" name="wantingToPayBill" min="0" max="15"
+                oninput="wantingToPayBillOutput.value = this.value" required />
+            </div>
+            <div class="col-md-4">
+              <label for="extensions" class="form-label">
+                Extensions: <output id="extensionsOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="extensions" name="extensions" min="0" max="15"
+                oninput="extensionsOutput.value = this.value" required />
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Tech Category -->
-      <h3 class="mt-4">Tech Total Chats</h3>
-      <div class="mb-3">
-        <label for="techTotalChats" class="form-label">Tech Total Chats:</label>
-        <input type="number" class="form-control" id="techTotalChats" name="techTotalChats" required />
-      </div>
-      <h5>Subcategories</h5>
-      <div class="mb-3">
-        <label for="activation" class="form-label">Activation:</label>
-        <input type="range" class="form-range" id="activation" name="activation" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="slowSpeeds" class="form-label">Slow speeds:</label>
-        <input type="range" class="form-range" id="slowSpeeds" name="slowSpeeds" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="internetStopping" class="form-label">Internet stopping out of nowhere:</label>
-        <input type="range" class="form-range" id="internetStopping" name="internetStopping" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="notWorkingAfterResuming" class="form-label">Internet not working after resuming service:</label>
-        <input type="range" class="form-range" id="notWorkingAfterResuming" name="notWorkingAfterResuming" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="replacements" class="form-label">Replacements (replacement activation):</label>
-        <input type="range" class="form-range" id="replacements" name="replacements" min="0" max="15" />
+      <div class="card mb-4">
+        <div class="card-header">Tech Total Chats</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="techTotalChats" class="form-label">Tech Total Chats:</label>
+            <input type="number" class="form-control" id="techTotalChats" name="techTotalChats" required />
+          </div>
+          <h5>Subcategories</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="activation" class="form-label">
+                Activation: <output id="activationOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="activation" name="activation" min="0" max="15"
+                oninput="activationOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="slowSpeeds" class="form-label">
+                Slow speeds: <output id="slowSpeedsOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="slowSpeeds" name="slowSpeeds" min="0" max="15"
+                oninput="slowSpeedsOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="internetStopping" class="form-label">
+                Internet stopping out of nowhere: <output id="internetStoppingOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="internetStopping" name="internetStopping" min="0" max="15"
+                oninput="internetStoppingOutput.value = this.value" />
+            </div>
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <label for="notWorkingAfterResuming" class="form-label">
+                Internet not working after resuming service: <output id="notWorkingAfterResumingOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="notWorkingAfterResuming" name="notWorkingAfterResuming" min="0" max="15"
+                oninput="notWorkingAfterResumingOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="replacements" class="form-label">
+                Replacements (replacement activation): <output id="replacementsOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="replacements" name="replacements" min="0" max="15"
+                oninput="replacementsOutput.value = this.value" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Cancellation Category -->
-      <h3 class="mt-4">Cancellation Total Chats</h3>
-      <div class="mb-3">
-        <label for="cancellationTotalChats" class="form-label">Cancellation Total Chats:</label>
-        <input type="range" class="form-range" id="cancellationTotalChats" name="cancellationTotalChats" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="foundAnotherProvider" class="form-label">Found another provider:</label>
-        <input type="range" class="form-range" id="foundAnotherProvider" name="foundAnotherProvider" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="slowSpeedsCancel" class="form-label">Slow speeds:</label>
-        <input type="range" class="form-range" id="slowSpeedsCancel" name="slowSpeedsCancel" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="notConsistentEnough" class="form-label">Not consistent enough:</label>
-        <input type="range" class="form-range" id="notConsistentEnough" name="notConsistentEnough" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="noLongerNeeded" class="form-label">No longer needed:</label>
-        <input type="range" class="form-range" id="noLongerNeeded" name="noLongerNeeded" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="customerService" class="form-label">Customer service:</label>
-        <input type="range" class="form-range" id="customerService" name="customerService" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="tooExpensive" class="form-label">Too Expensive:</label>
-        <input type="range" class="form-range" id="tooExpensive" name="tooExpensive" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="thought14DaysFreeTrial" class="form-label">Thought it was a 14 days free trial:</label>
-        <input type="range" class="form-range" id="thought14DaysFreeTrial" name="thought14DaysFreeTrial" min="0" max="15" />
-      </div>
-      <div class="mb-3">
-        <label for="preOrderCancellation" class="form-label">Pre Order cancellation:</label>
-        <input type="range" class="form-range" id="preOrderCancellation" name="preOrderCancellation" min="0" max="15" />
+      <div class="card mb-4">
+        <div class="card-header">Cancellation Total Chats</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="cancellationTotalChats" class="form-label">
+              Cancellation Total Chats: <output id="cancellationTotalChatsOutput">0</output>
+            </label>
+            <input type="range" class="form-range" id="cancellationTotalChats" name="cancellationTotalChats" min="0" max="15"
+              oninput="cancellationTotalChatsOutput.value = this.value" />
+          </div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="foundAnotherProvider" class="form-label">
+                Found another provider: <output id="foundAnotherProviderOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="foundAnotherProvider" name="foundAnotherProvider" min="0" max="15"
+                oninput="foundAnotherProviderOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="slowSpeedsCancel" class="form-label">
+                Slow speeds: <output id="slowSpeedsCancelOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="slowSpeedsCancel" name="slowSpeedsCancel" min="0" max="15"
+                oninput="slowSpeedsCancelOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="notConsistentEnough" class="form-label">
+                Not consistent enough: <output id="notConsistentEnoughOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="notConsistentEnough" name="notConsistentEnough" min="0" max="15"
+                oninput="notConsistentEnoughOutput.value = this.value" />
+            </div>
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <label for="noLongerNeeded" class="form-label">
+                No longer needed: <output id="noLongerNeededOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="noLongerNeeded" name="noLongerNeeded" min="0" max="15"
+                oninput="noLongerNeededOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="customerService" class="form-label">
+                Customer service: <output id="customerServiceOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="customerService" name="customerService" min="0" max="15"
+                oninput="customerServiceOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="tooExpensive" class="form-label">
+                Too Expensive: <output id="tooExpensiveOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="tooExpensive" name="tooExpensive" min="0" max="15"
+                oninput="tooExpensiveOutput.value = this.value" />
+            </div>
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <label for="thought14DaysFreeTrial" class="form-label">
+                Thought it was a 14 days free trial: <output id="thought14DaysFreeTrialOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="thought14DaysFreeTrial" name="thought14DaysFreeTrial" min="0" max="15"
+                oninput="thought14DaysFreeTrialOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="preOrderCancellation" class="form-label">
+                Pre Order cancellation: <output id="preOrderCancellationOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="preOrderCancellation" name="preOrderCancellation" min="0" max="15"
+                oninput="preOrderCancellationOutput.value = this.value" />
+            </div>
+            <div class="col-md-4">
+              <label for="shippingDelayChats" class="form-label">
+                Shipping delay chats: <output id="shippingDelayChatsOutput">0</output>
+              </label>
+              <input type="range" class="form-range" id="shippingDelayChats" name="shippingDelayChats" min="0" max="15"
+                oninput="shippingDelayChatsOutput.value = this.value" />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Shipping Delay Chats -->
-      <div class="mb-3">
-        <label for="shippingDelayChats" class="form-label">Add shipping delay chats:</label>
-        <input type="range" class="form-range" id="shippingDelayChats" name="shippingDelayChats" min="0" max="15" />
-      </div>
-
-      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 
   <!-- Bootstrap Modal for Submission Summary -->
-  <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div
+    class="modal fade"
+    id="reportModal"
+    tabindex="-1"
+    aria-labelledby="reportModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reportModalLabel">Submission Summary</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body" id="modalSummary">
           <!-- Summary content will be injected here -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Submit Another Response</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Submit Another Response
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
   <script src="index.js"></script>
 </body>
 </html>
