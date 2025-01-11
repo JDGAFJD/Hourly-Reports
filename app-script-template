@@ -1,0 +1,24 @@
+function doPost(e) {
+  let sheetName = "Page1"
+  let sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+   if (!sheet) {
+    return ContentService.createTextOutput("Error: Sheet not found");
+  }
+    let newRow = sheet.getLastRow() + 1;
+
+  let rowData = [];
+  
+  rowData.push(new Date());  // Timestamp
+  rowData.push(e.parameter.FirstName);
+  rowData.push(e.parameter.LastName);
+  rowData.push(e.parameter.Age);
+  rowData.push(e.parameter.Gender);
+  rowData.push(e.parameter.Country);
+  rowData.push(e.parameter.PhoneNumber);
+  rowData.push(e.parameter.Email);
+  rowData.push(e.parameter.Message);
+  
+  sheet.getRange(newRow, 1, 1, rowData.length).setValues([rowData]);
+  
+  return ContentService.createTextOutput('Form submission was successful. Thank you. We will get back to you within 24 hours');
+}
