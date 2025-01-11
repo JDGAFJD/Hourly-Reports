@@ -1,45 +1,34 @@
-// Function to show the modal
-function showModal(message) {
-    var modal = document.getElementById("myModal");
-    var modalMessage = document.getElementById("modalMessage");
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
+  const form = this;
+  const formData = new FormData(form);
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", form.action);
 
-
-    // Set the message in the modal
-    modalMessage.textContent = message;
-
-    // Show the modal
-    modal.style.display = "block";
-
-    // Add event listener to close the modal when the close button is clicked
-    var closeButton = document.getElementsByClassName("close")[0];
-    closeButton.addEventListener("click", function() {
-      modal.style.display = "none";
-    });
-  }
-
-  // Add event listener to the form submission
-  document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Show the modal immediately to indicate form submission is in progress
-    showModal("Submitting form...");
-
-    // Perform an AJAX request to submit the form
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", this.action);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Successful response
-          var response = xhr.responseText;
-          showModal(response); // Show the modal with the response message
-          document.getElementById("myForm").reset(); //Clear the form fields
-        } else {
-          // Error response
-          showModal("Error: Something went wrong."); // Show a generic error message
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        // Build the summary from submitted data
+        let summaryHtml = `<p>${xhr.responseText}</p><hr>`;
+        summaryHtml += "<h5>Your Submitted Data:</h5><ul>";
+        for (let [key, value] of formData.entries()) {
+          summaryHtml += `<li><strong>${key}:</strong> ${value}</li>`;
         }
+        summaryHtml += "</ul><p>Please post the summary in the CS channel.</p>";
+
+        document.getElementById("modalSummary").innerHTML = summaryHtml;
+
+        // Show Bootstrap modal
+        const reportModal = new bootstrap.Modal(document.getElementById("reportModal"));
+        reportModal.show();
+
+        form.reset();
+      } else {
+        alert("Error: Something went wrong.");
       }
-    };
-    xhr.send(new FormData(this));
-  });
+    }
+  };
+
+  xhr.send(formData);
+});
