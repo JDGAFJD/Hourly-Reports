@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hourly Reporting Form</title>
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     /* Position counters at bottom right of each card */
     .section-counter {
@@ -27,14 +24,13 @@
   <div class="container my-5">
     <h1 class="text-center mb-4">Hourly Reporting Form</h1>
     <form id="myForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec" method="post">
-      
+
       <!-- Agent Selection and Date/Hour -->
       <div class="row g-3 mb-4">
         <div class="col-md-4">
           <label for="agentName" class="form-label">Name of the Agent:</label>
           <select class="form-select" id="agentName" name="agentName" required>
             <option value="">Select an agent...</option>
-            <!-- 15 Agents -->
             <option value="Agent1">Agent1</option>
             <option value="Agent2">Agent2</option>
             <option value="Agent3">Agent3</option>
@@ -60,7 +56,6 @@
           <label for="hour" class="form-label">Hour of the Day (CST):</label>
           <select class="form-select" id="hour" name="hour" required>
             <option value="">Select hour...</option>
-            <!-- Options for hours -->
             <option value="00:00">00:00</option>
             <option value="01:00">01:00</option>
             <option value="02:00">02:00</option>
@@ -100,44 +95,31 @@
         <div class="card-header">Billing Total Chats</div>
         <div class="card-body">
           <div class="mb-3">
-            <label for="billingTotal" class="form-label">Billing Total Chats:</label>
-            <select class="form-select" id="billingTotal" name="billingTotal" required onchange="updateAllCounters()">
-              ${generateOptions(0, 100)}
-            </select>
+            <label class="form-label">Billing Total Chats:</label>
+            <div id="input_billingTotal"></div>
           </div>
           <div class="row g-3">
-            <!-- Convert each range to select -->
             <div class="col-md-6">
-              <label for="chargedAfterCancelation" class="form-label">Charged after cancellation:</label>
-              <select class="form-select" id="chargedAfterCancelation" name="chargedAfterCancelation" required onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Charged after cancellation:</label>
+              <div id="input_chargedAfterCancelation"></div>
             </div>
             <div class="col-md-6">
-              <label for="with14DaysMBG" class="form-label">With 14 days MBG:</label>
-              <select class="form-select" id="with14DaysMBG" name="with14DaysMBG" required onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">With 14 days MBG:</label>
+              <div id="input_with14DaysMBG"></div>
             </div>
           </div>
           <div class="row g-3 mt-3">
             <div class="col-md-4">
-              <label for="addOnsExtraCharges" class="form-label">Add-ons/extra charges:</label>
-              <select class="form-select" id="addOnsExtraCharges" name="addOnsExtraCharges" required onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Add-ons/extra charges:</label>
+              <div id="input_addOnsExtraCharges"></div>
             </div>
             <div class="col-md-4">
-              <label for="wantingToPayBill" class="form-label">Wanting to pay their bill:</label>
-              <select class="form-select" id="wantingToPayBill" name="wantingToPayBill" required onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Wanting to pay their bill:</label>
+              <div id="input_wantingToPayBill"></div>
             </div>
             <div class="col-md-4">
-              <label for="extensions" class="form-label">Extensions:</label>
-              <select class="form-select" id="extensions" name="extensions" required onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Extensions:</label>
+              <div id="input_extensions"></div>
             </div>
           </div>
         </div>
@@ -149,44 +131,32 @@
         <div class="card-header">Tech Total Chats</div>
         <div class="card-body">
           <div class="mb-3">
-            <label for="techTotalChats" class="form-label">Tech Total Chats:</label>
-            <select class="form-select" id="techTotalChats" name="techTotalChats" required onchange="updateAllCounters()">
-              ${generateOptions(0, 100)}
-            </select>
+            <label class="form-label">Tech Total Chats:</label>
+            <div id="input_techTotalChats"></div>
           </div>
           <h5>Subcategories</h5>
           <div class="row g-3">
             <div class="col-md-4">
-              <label for="activation" class="form-label">Activation:</label>
-              <select class="form-select" id="activation" name="activation" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Activation:</label>
+              <div id="input_activation"></div>
             </div>
             <div class="col-md-4">
-              <label for="slowSpeeds" class="form-label">Slow speeds:</label>
-              <select class="form-select" id="slowSpeeds" name="slowSpeeds" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Slow speeds:</label>
+              <div id="input_slowSpeeds"></div>
             </div>
             <div class="col-md-4">
-              <label for="internetStopping" class="form-label">Internet stopping out of nowhere:</label>
-              <select class="form-select" id="internetStopping" name="internetStopping" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Internet stopping out of nowhere:</label>
+              <div id="input_internetStopping"></div>
             </div>
           </div>
           <div class="row g-3 mt-3">
             <div class="col-md-4">
-              <label for="notWorkingAfterResuming" class="form-label">Internet not working after resuming service:</label>
-              <select class="form-select" id="notWorkingAfterResuming" name="notWorkingAfterResuming" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Internet not working after resuming service:</label>
+              <div id="input_notWorkingAfterResuming"></div>
             </div>
             <div class="col-md-4">
-              <label for="replacements" class="form-label">Replacements (replacement activation):</label>
-              <select class="form-select" id="replacements" name="replacements" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Replacements (replacement activation):</label>
+              <div id="input_replacements"></div>
             </div>
           </div>
         </div>
@@ -198,69 +168,49 @@
         <div class="card-header">Cancellation Total Chats</div>
         <div class="card-body">
           <div class="mb-3">
-            <label for="cancellationTotalChats" class="form-label">Cancellation Total Chats:</label>
-            <select class="form-select" id="cancellationTotalChats" name="cancellationTotalChats" onchange="updateAllCounters()">
-              ${generateOptions(0, 15)}
-            </select>
+            <label class="form-label">Cancellation Total Chats:</label>
+            <div id="input_cancellationTotalChats"></div>
           </div>
           <div class="row g-3">
             <div class="col-md-4">
-              <label for="foundAnotherProvider" class="form-label">Found another provider:</label>
-              <select class="form-select" id="foundAnotherProvider" name="foundAnotherProvider" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Found another provider:</label>
+              <div id="input_foundAnotherProvider"></div>
             </div>
             <div class="col-md-4">
-              <label for="slowSpeedsCancel" class="form-label">Slow speeds:</label>
-              <select class="form-select" id="slowSpeedsCancel" name="slowSpeedsCancel" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Slow speeds:</label>
+              <div id="input_slowSpeedsCancel"></div>
             </div>
             <div class="col-md-4">
-              <label for="notConsistentEnough" class="form-label">Not consistent enough:</label>
-              <select class="form-select" id="notConsistentEnough" name="notConsistentEnough" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Not consistent enough:</label>
+              <div id="input_notConsistentEnough"></div>
             </div>
           </div>
           <div class="row g-3 mt-3">
             <div class="col-md-4">
-              <label for="noLongerNeeded" class="form-label">No longer needed:</label>
-              <select class="form-select" id="noLongerNeeded" name="noLongerNeeded" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">No longer needed:</label>
+              <div id="input_noLongerNeeded"></div>
             </div>
             <div class="col-md-4">
-              <label for="customerService" class="form-label">Customer service:</label>
-              <select class="form-select" id="customerService" name="customerService" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Customer service:</label>
+              <div id="input_customerService"></div>
             </div>
             <div class="col-md-4">
-              <label for="tooExpensive" class="form-label">Too Expensive:</label>
-              <select class="form-select" id="tooExpensive" name="tooExpensive" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Too Expensive:</label>
+              <div id="input_tooExpensive"></div>
             </div>
           </div>
           <div class="row g-3 mt-3">
             <div class="col-md-4">
-              <label for="thought14DaysFreeTrial" class="form-label">Thought it was a 14 days free trial:</label>
-              <select class="form-select" id="thought14DaysFreeTrial" name="thought14DaysFreeTrial" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Thought it was a 14 days free trial:</label>
+              <div id="input_thought14DaysFreeTrial"></div>
             </div>
             <div class="col-md-4">
-              <label for="preOrderCancellation" class="form-label">Pre Order cancellation:</label>
-              <select class="form-select" id="preOrderCancellation" name="preOrderCancellation" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Pre Order cancellation:</label>
+              <div id="input_preOrderCancellation"></div>
             </div>
             <div class="col-md-4">
-              <label for="shippingDelayChats" class="form-label">Shipping delay chats:</label>
-              <select class="form-select" id="shippingDelayChats" name="shippingDelayChats" onchange="updateAllCounters()">
-                ${generateOptions(0, 15)}
-              </select>
+              <label class="form-label">Shipping delay chats:</label>
+              <div id="input_shippingDelayChats"></div>
             </div>
           </div>
         </div>
@@ -272,44 +222,23 @@
   </div>
 
   <!-- Bootstrap Modal for Submission Summary -->
-  <div
-    class="modal fade"
-    id="reportModal"
-    tabindex="-1"
-    aria-labelledby="reportModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reportModalLabel">Submission Summary</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="modalSummary">
-          <!-- Summary content will be injected here -->
-        </div>
+        <div class="modal-body" id="modalSummary"></div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Submit Another Response
-          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Submit Another Response</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bootstrap JS Bundle -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="index.js"></script>
 </body>
 </html>
