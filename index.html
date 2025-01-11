@@ -2,314 +2,288 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Hourly Chat Report</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hourly Reporting Form</title>
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </head>
 <body>
   <div class="container my-5">
-    <h1 class="text-center mb-4">Hourly Reporting Form</h1>
-    <form id="myForm" action="https://script.google.com/macros/s/AKfycbyXiMj21D3wzS7MEYJzgnVdnbQ2m7EIGixi35VtPmStmi_UQEN2jQYyFuPpI6VhqRRf/exec" method="post">
+    <h1 class="text-center mb-4">Hourly Chat Report</h1>
+    <form id="reportForm" action="https://script.google.com/macros/s/AKfycbzLFBCWbXmJaudY1_jCHlPRVXG-Fp_4B4dBVyiFJA7Kb_Qr_jWesjst4Hgk1bUd27v-/exec" method="post">
+      <!-- Agent and Time Selection -->
+      <div class="form-group">
+        <label for="agentName">Name of the agent:</label>
+        <select class="form-control" id="agentName" name="AgentName" required>
+          <option value="">Select Agent</option>
+          <option>Ahmed</option>
+          <option>Max</option>
+          <option>Donald</option>
+          <option>Mark</option>
+          <option>Danial</option>
+          <option>Justin</option>
+          <option>Rayyan</option>
+          <option>Sam</option>
+          <option>Agent9</option>
+          <option>Agent10</option>
+          <option>Agent11</option>
+          <option>Agent12</option>
+          <option>Agent13</option>
+          <option>Agent14</option>
+          <option>Agent15</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="reportDate">Date:</label>
+          <input type="date" class="form-control" id="reportDate" name="ReportDate" required />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="reportHour">Hour (CST):</label>
+          <select class="form-control" id="reportHour" name="ReportHour" required>
+            <option value="">Select Hour</option>
+            <option>8am</option>
+            <option>9am</option>
+            <option>10am</option>
+            <option>11am</option>
+            <option>12pm</option>
+            <option>1pm</option>
+            <option>2pm</option>
+            <option>3pm</option>
+            <option>4pm</option>
+            <option>5pm</option>
+            <option>6pm</option>
+            <option>7pm</option>
+          </select>
+        </div>
+      </div>
       
-      <!-- Agent Selection and Date/Hour -->
-      <div class="row g-3 mb-4">
-        <div class="col-md-4">
-          <label for="agentName" class="form-label">Name of the Agent:</label>
-          <select class="form-select" id="agentName" name="agentName" required>
-            <option value="">Select an agent...</option>
-            <option value="Ahmad">Ahmad</option>
-            <option value="Justin">Justin</option>
-            <option value="Max">Max</option>
-            <option value="Rayyan">Rayyan</option>
-            <option value="Mark">Mark</option>
-            <option value="Sam">Sam</option>
-            <option value="Donald">Donald</option>
-            <option value="Daniel">Daniel</option>
-            <option value="Agent9">Agent9</option>
-            <option value="Agent10">Agent10</option>
-            <option value="Agent11">Agent11</option>
-            <option value="Agent12">Agent12</option>
-            <option value="Agent13">Agent13</option>
-            <option value="Agent14">Agent14</option>
-            <option value="Agent15">Agent15</option>
-          </select>
+      <div class="alert alert-info">
+        <strong>Total Number of Chats:</strong> <span id="overallTotal">0</span>
+      </div>
+
+      <!-- Billing Section -->
+      <div class="card mb-3">
+        <div class="card-header">Billing</div>
+        <div class="card-body" id="billingSection">
+          <div class="form-group">
+            <label>Charged after cancelation:</label><br>
+            <div data-radio-group="ChargedAfterCancelation"></div>
+          </div>
+          <div class="form-group">
+            <label>With 14 days MBG:</label><br>
+            <div data-radio-group="With14DaysMBG"></div>
+          </div>
+          <div class="form-group">
+            <label>Add-ons/extra charges:</label><br>
+            <div data-radio-group="AddOnsExtraCharges"></div>
+          </div>
+          <div class="form-group">
+            <label>Wanting to pay their bill:</label><br>
+            <div data-radio-group="WantingToPay"></div>
+          </div>
+          <div class="form-group">
+            <label>Extensions:</label><br>
+            <div data-radio-group="Extensions"></div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label for="reportDate" class="form-label">Date:</label>
-          <input type="date" class="form-control" id="reportDate" name="reportDate" required />
-        </div>
-        <div class="col-md-4">
-          <label for="hour" class="form-label">Hour of the Day (CST):</label>
-          <select class="form-select" id="hour" name="hour" required>
-            <option value="">Select hour...</option>
-            <!-- Options for hours -->
-            <option value="00:00">00:00</option>
-            <option value="01:00">01:00</option>
-            <option value="02:00">02:00</option>
-            <option value="03:00">03:00</option>
-            <option value="04:00">04:00</option>
-            <option value="05:00">05:00</option>
-            <option value="06:00">06:00</option>
-            <option value="07:00">07:00</option>
-            <option value="08:00">08:00</option>
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="12:00">12:00</option>
-            <option value="13:00">13:00</option>
-            <option value="14:00">14:00</option>
-            <option value="15:00">15:00</option>
-            <option value="16:00">16:00</option>
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
-            <option value="21:00">21:00</option>
-            <option value="22:00">22:00</option>
-            <option value="23:00">23:00</option>
-          </select>
+        <div class="card-footer text-right">
+          <strong>Total Billing Chats:</strong> <span id="billingTotal">0</span>
         </div>
       </div>
 
-      <div class="mb-3">
-        <label for="totalChats" class="form-label">Total Number of Chats:</label>
-        <input type="number" class="form-control" id="totalChats" name="totalChats" required />
-      </div>
-
-      <!-- Billing Category -->
-      <div class="card mb-4">
-        <div class="card-header">Billing Total Chats</div>
-        <div class="card-body">
-          <div class="mb-3">
-            <label for="billingTotal" class="form-label">
-              Billing Total Chats: <output id="billingTotalOutput">0</output>
-            </label>
-            <input type="range" class="form-range" id="billingTotal" name="billingTotal" min="0" max="100" 
-              oninput="billingTotalOutput.value = this.value" required />
+      <!-- Tech Section -->
+      <div class="card mb-3">
+        <div class="card-header">Tech</div>
+        <div class="card-body" id="techSection">
+          <div class="form-group">
+            <label>Activation:</label><br>
+            <div data-radio-group="Activation"></div>
           </div>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="chargedAfterCancelation" class="form-label">
-                Charged after cancellation: <output id="chargedAfterCancelationOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="chargedAfterCancelation" name="chargedAfterCancelation" min="0" max="15"
-                oninput="chargedAfterCancelationOutput.value = this.value" required />
-            </div>
-            <div class="col-md-6">
-              <label for="with14DaysMBG" class="form-label">
-                With 14 days MBG: <output id="with14DaysMBGOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="with14DaysMBG" name="with14DaysMBG" min="0" max="15"
-                oninput="with14DaysMBGOutput.value = this.value" required />
-            </div>
+          <div class="form-group">
+            <label>Slow speeds:</label><br>
+            <div data-radio-group="SlowSpeeds"></div>
           </div>
-          <div class="row g-3 mt-3">
-            <div class="col-md-4">
-              <label for="addOnsExtraCharges" class="form-label">
-                Add-ons/extra charges: <output id="addOnsExtraChargesOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="addOnsExtraCharges" name="addOnsExtraCharges" min="0" max="15"
-                oninput="addOnsExtraChargesOutput.value = this.value" required />
-            </div>
-            <div class="col-md-4">
-              <label for="wantingToPayBill" class="form-label">
-                Wanting to pay their bill: <output id="wantingToPayBillOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="wantingToPayBill" name="wantingToPayBill" min="0" max="15"
-                oninput="wantingToPayBillOutput.value = this.value" required />
-            </div>
-            <div class="col-md-4">
-              <label for="extensions" class="form-label">
-                Extensions: <output id="extensionsOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="extensions" name="extensions" min="0" max="15"
-                oninput="extensionsOutput.value = this.value" required />
-            </div>
+          <div class="form-group">
+            <label>Internet stopping out of nowhere:</label><br>
+            <div data-radio-group="InternetStopping"></div>
           </div>
+          <div class="form-group">
+            <label>Internet not working after resuming service (pay bill/resume subscription):</label><br>
+            <input type="range" class="form-control-range" id="InternetNotWorking" name="InternetNotWorking" min="0" max="15" value="0" />
+            <span id="InternetNotWorkingValue">0</span>
+          </div>
+          <div class="form-group">
+            <label>Replacements (replacement activation):</label><br>
+            <div data-radio-group="Replacements"></div>
+          </div>
+        </div>
+        <div class="card-footer text-right">
+          <strong>Total Tech Chats:</strong> <span id="techTotal">0</span>
         </div>
       </div>
 
-      <!-- Tech Category -->
-      <div class="card mb-4">
-        <div class="card-header">Tech Total Chats</div>
-        <div class="card-body">
-          <div class="mb-3">
-            <label for="techTotalChats" class="form-label">Tech Total Chats:</label>
-            <input type="number" class="form-control" id="techTotalChats" name="techTotalChats" required />
+      <!-- Cancelation Section -->
+      <div class="card mb-3">
+        <div class="card-header">Cancelation</div>
+        <div class="card-body" id="cancelationSection">
+          <div class="form-group">
+            <label>Found another provider:</label><br>
+            <div data-radio-group="FoundAnotherProvider"></div>
           </div>
-          <h5>Subcategories</h5>
-          <div class="row g-3">
-            <div class="col-md-4">
-              <label for="activation" class="form-label">
-                Activation: <output id="activationOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="activation" name="activation" min="0" max="15"
-                oninput="activationOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="slowSpeeds" class="form-label">
-                Slow speeds: <output id="slowSpeedsOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="slowSpeeds" name="slowSpeeds" min="0" max="15"
-                oninput="slowSpeedsOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="internetStopping" class="form-label">
-                Internet stopping out of nowhere: <output id="internetStoppingOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="internetStopping" name="internetStopping" min="0" max="15"
-                oninput="internetStoppingOutput.value = this.value" />
-            </div>
+          <div class="form-group">
+            <label>Slow speeds:</label><br>
+            <div data-radio-group="CancelationSlowSpeeds"></div>
           </div>
-          <div class="row g-3 mt-3">
-            <div class="col-md-4">
-              <label for="notWorkingAfterResuming" class="form-label">
-                Internet not working after resuming service: <output id="notWorkingAfterResumingOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="notWorkingAfterResuming" name="notWorkingAfterResuming" min="0" max="15"
-                oninput="notWorkingAfterResumingOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="replacements" class="form-label">
-                Replacements (replacement activation): <output id="replacementsOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="replacements" name="replacements" min="0" max="15"
-                oninput="replacementsOutput.value = this.value" />
-            </div>
+          <div class="form-group">
+            <label>Not consistent enough:</label><br>
+            <div data-radio-group="NotConsistentEnough"></div>
           </div>
+          <div class="form-group">
+            <label>No longer needed:</label><br>
+            <div data-radio-group="NoLongerNeeded"></div>
+          </div>
+          <div class="form-group">
+            <label>Customer service:</label><br>
+            <div data-radio-group="CustomerService"></div>
+          </div>
+          <div class="form-group">
+            <label>Too Expensive:</label><br>
+            <div data-radio-group="TooExpensive"></div>
+          </div>
+          <div class="form-group">
+            <label>Thought it was a 14 days free trial:</label><br>
+            <div data-radio-group="FourteenDaysFreeTrial"></div>
+          </div>
+          <div class="form-group">
+            <label>Pre Order cancelation:</label><br>
+            <div data-radio-group="PreOrderCancelation"></div>
+          </div>
+        </div>
+        <div class="card-footer text-right">
+          <strong>Total Cancelation Chats:</strong> <span id="cancelationTotal">0</span>
         </div>
       </div>
 
-      <!-- Cancellation Category -->
-      <div class="card mb-4">
-        <div class="card-header">Cancellation Total Chats</div>
-        <div class="card-body">
-          <div class="mb-3">
-            <label for="cancellationTotalChats" class="form-label">
-              Cancellation Total Chats: <output id="cancellationTotalChatsOutput">0</output>
-            </label>
-            <input type="range" class="form-range" id="cancellationTotalChats" name="cancellationTotalChats" min="0" max="15"
-              oninput="cancellationTotalChatsOutput.value = this.value" />
+      <!-- Shipping Delay Section -->
+      <div class="card mb-3">
+        <div class="card-header">Shipping Delay Chats</div>
+        <div class="card-body" id="shippingSection">
+          <div class="form-group">
+            <label>Add shipping delay chats:</label><br>
+            <div data-radio-group="ShippingDelay"></div>
           </div>
-          <div class="row g-3">
-            <div class="col-md-4">
-              <label for="foundAnotherProvider" class="form-label">
-                Found another provider: <output id="foundAnotherProviderOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="foundAnotherProvider" name="foundAnotherProvider" min="0" max="15"
-                oninput="foundAnotherProviderOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="slowSpeedsCancel" class="form-label">
-                Slow speeds: <output id="slowSpeedsCancelOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="slowSpeedsCancel" name="slowSpeedsCancel" min="0" max="15"
-                oninput="slowSpeedsCancelOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="notConsistentEnough" class="form-label">
-                Not consistent enough: <output id="notConsistentEnoughOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="notConsistentEnough" name="notConsistentEnough" min="0" max="15"
-                oninput="notConsistentEnoughOutput.value = this.value" />
-            </div>
-          </div>
-          <div class="row g-3 mt-3">
-            <div class="col-md-4">
-              <label for="noLongerNeeded" class="form-label">
-                No longer needed: <output id="noLongerNeededOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="noLongerNeeded" name="noLongerNeeded" min="0" max="15"
-                oninput="noLongerNeededOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="customerService" class="form-label">
-                Customer service: <output id="customerServiceOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="customerService" name="customerService" min="0" max="15"
-                oninput="customerServiceOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="tooExpensive" class="form-label">
-                Too Expensive: <output id="tooExpensiveOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="tooExpensive" name="tooExpensive" min="0" max="15"
-                oninput="tooExpensiveOutput.value = this.value" />
-            </div>
-          </div>
-          <div class="row g-3 mt-3">
-            <div class="col-md-4">
-              <label for="thought14DaysFreeTrial" class="form-label">
-                Thought it was a 14 days free trial: <output id="thought14DaysFreeTrialOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="thought14DaysFreeTrial" name="thought14DaysFreeTrial" min="0" max="15"
-                oninput="thought14DaysFreeTrialOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="preOrderCancellation" class="form-label">
-                Pre Order cancellation: <output id="preOrderCancellationOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="preOrderCancellation" name="preOrderCancellation" min="0" max="15"
-                oninput="preOrderCancellationOutput.value = this.value" />
-            </div>
-            <div class="col-md-4">
-              <label for="shippingDelayChats" class="form-label">
-                Shipping delay chats: <output id="shippingDelayChatsOutput">0</output>
-              </label>
-              <input type="range" class="form-range" id="shippingDelayChats" name="shippingDelayChats" min="0" max="15"
-                oninput="shippingDelayChatsOutput.value = this.value" />
-            </div>
-          </div>
+        </div>
+        <div class="card-footer text-right">
+          <strong>Total Shipping Delay Chats:</strong> <span id="shippingTotal">0</span>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
+
+    <div id="reportDisplay" class="mt-5" style="display:none;"></div>
   </div>
 
-  <!-- Bootstrap Modal for Submission Summary -->
-  <div
-    class="modal fade"
-    id="reportModal"
-    tabindex="-1"
-    aria-labelledby="reportModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="reportModalLabel">Submission Summary</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body" id="modalSummary">
-          <!-- Summary content will be injected here -->
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Submit Another Response
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Bootstrap & dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Bootstrap JS Bundle -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
-  <script src="index.js"></script>
+  <script>
+    // Function to create radio button groups dynamically
+    function createRadioGroup(name) {
+      let radios = '';
+      for (let i = 0; i <= 10; i++) {
+        radios += `
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="${name}" id="${name}${i}" value="${i}">
+            <label class="form-check-label" for="${name}${i}">${i}</label>
+          </div>
+        `;
+      }
+      return radios;
+    }
+
+    // Initialize radio groups and event listeners on DOM load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('[data-radio-group]').forEach(el => {
+        let fieldName = el.getAttribute('data-radio-group');
+        el.innerHTML = createRadioGroup(fieldName);
+      });
+
+      document.querySelectorAll('input[type=radio], input[type=range]').forEach(el => {
+        el.addEventListener('change', calculateTotals);
+      });
+      calculateTotals();
+    });
+
+    function calculateTotals() {
+      // Billing totals
+      let billingSum = 0;
+      document.querySelectorAll('#billingSection input[type=radio]:checked')
+        .forEach(el => billingSum += parseInt(el.value) || 0);
+      document.getElementById('billingTotal').textContent = billingSum;
+
+      // Tech totals
+      let techSum = 0;
+      document.querySelectorAll('#techSection input[type=radio]:checked')
+        .forEach(el => techSum += parseInt(el.value) || 0);
+      let sliderVal = parseInt(document.getElementById('InternetNotWorking').value) || 0;
+      techSum += sliderVal;
+      document.getElementById('techTotal').textContent = techSum;
+      document.getElementById('InternetNotWorkingValue').textContent = sliderVal;
+
+      // Cancelation totals
+      let cancelationSum = 0;
+      document.querySelectorAll('#cancelationSection input[type=radio]:checked')
+        .forEach(el => cancelationSum += parseInt(el.value) || 0);
+      document.getElementById('cancelationTotal').textContent = cancelationSum;
+
+      // Shipping totals
+      let shippingSum = 0;
+      document.querySelectorAll('#shippingSection input[type=radio]:checked')
+        .forEach(el => shippingSum += parseInt(el.value) || 0);
+      document.getElementById('shippingTotal').textContent = shippingSum;
+
+      // Overall total
+      let overall = billingSum + techSum + cancelationSum + shippingSum;
+      document.getElementById('overallTotal').textContent = overall;
+    }
+
+    // Form submission handling
+    document.getElementById("reportForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var form = this;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", form.action);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            var formData = new FormData(form);
+            var data = Object.fromEntries(formData.entries());
+            var summaryHtml = '<h2>Report Summary</h2><ul class="list-group">';
+            for (var key in data) {
+              summaryHtml += '<li class="list-group-item"><strong>' + key + ':</strong> ' + data[key] + '</li>';
+            }
+            summaryHtml += '</ul>';
+            summaryHtml += '<p class="mt-3">Please post this report in the CS channel.</p>';
+            summaryHtml += '<button id="newResponse" class="btn btn-secondary mt-3">Submit another response</button>';
+            document.getElementById('reportDisplay').innerHTML = summaryHtml;
+            document.getElementById('reportDisplay').style.display = 'block';
+            form.style.display = 'none';
+            document.getElementById('newResponse').addEventListener('click', function() {
+              form.reset();
+              calculateTotals();
+              form.style.display = 'block';
+              document.getElementById('reportDisplay').style.display = 'none';
+            });
+          } else {
+            alert("Submission failed. Please try again.");
+          }
+        }
+      };
+      xhr.send(new FormData(form));
+    });
+  </script>
 </body>
 </html>
